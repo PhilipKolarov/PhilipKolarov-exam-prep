@@ -3,13 +3,13 @@ const fetch = require('node-fetch');
 
 suite('Add Movies page', function() {
   test('Page title', async function() {
-    let res = await fetch("http://localhost:8888/add-movie");
+    let res = await fetch("http://localhost:8080/movies");
     let body = await res.text();
     assert.ok(body.includes("<h1>Add New Movie</h1>"));
   });
 
   test('Movie HTML form', async function() {
-    let res = await fetch("http://localhost:8888/add-movie");
+    let res = await fetch("http://localhost:8080/movies");
     let body = await res.text();
     
     let nameFieldFound = body.includes('<input id="name" type="text" name="name"/>');
@@ -24,7 +24,7 @@ suite('Add Movies page', function() {
 
   test('Add valid movie', async function() {
     let res = await fetch(
-      "http://localhost:8888/add-movie",
+      "http://localhost:8080/movies",
       {
         method: 'POST',
         headers: {
@@ -41,7 +41,7 @@ suite('Add Movies page', function() {
 
   test('Add invalid movie', async function() {
      let res = await fetch(
-      "http://localhost:8888/add-movie",
+      "http://localhost:8080/movies",
       {
         method: 'POST',
         headers: {
@@ -54,7 +54,7 @@ suite('Add Movies page', function() {
     let errMsg = body.includes("Cannot add movie. Name and rating fields are required!");
     assert.ok(errMsg, "Add invalid movie should display an error message");
 
-    res = await fetch("http://localhost:8888/");
+    res = await fetch("http://localhost:8080/movies");
     body = await res.text();
 	assert.ok(body.includes("Added movies: <b>3</b>"), 
 		"Add invalid movie should not change the movies count");
