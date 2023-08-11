@@ -23,7 +23,6 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run test:unit
-    - run: echo "PhilipKolarov"
     
     - name: Deploy to production
       uses: johnbeynon/render-deploy-action@v0.0.8
